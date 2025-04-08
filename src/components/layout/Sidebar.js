@@ -94,20 +94,24 @@ const Sidebar = () => {
 
   return (
     <div 
-      className={`bg-white h-screen transition-all duration-300 shadow-md ${
+      className={`bg-white h-screen transition-all duration-300 border-r ${
         collapsed ? 'w-20' : 'w-64'
       }`}
     >
-      {/* Logo */}
-      <div className="p-5 flex items-center">
-        <div className="bg-gray-800 w-10 h-10 rounded-md flex items-center justify-center text-white font-bold mr-2">
-          S
+      {/* Logo and Title Header */}
+      <div className="py-4 px-5 flex items-center">
+     
+        <div className="w-6 h-7 mr-3">
+          <svg viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H16.5C16.5 2.20435 16.1839 1.44129 15.6213 0.87868C15.0587 0.31607 14.2956 0 13.5 0H10.5C9.70435 0 8.94129 0.31607 8.37868 0.87868C7.81607 1.44129 7.5 2.20435 7.5 3H5C3.67392 3 2.40215 3.52678 1.46447 4.46447C0.526784 5.40215 0 6.67392 0 8V23C0 24.3261 0.526784 25.5979 1.46447 26.5355C2.40215 27.4732 3.67392 28 5 28H19C20.3261 28 21.5979 27.4732 22.5355 26.5355C23.4732 25.5979 24 24.3261 24 23V8C24 6.67392 23.4732 5.40215 22.5355 4.46447C21.5979 3.52678 20.3261 3 19 3Z" fill="black"/>
+            <path d="M8.5 14L11.5 17L16.5 11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
         {!collapsed && (
-          <div className="text-xl font-bold">Soar Task</div>
+          <div className="text-xl font-bold text-[#36406A]">Soar Task</div>
         )}
         <button 
-          className="ml-auto text-gray-500 hover:text-gray-800 lg:hidden"
+          className="ml-auto text-gray-500 hover:text-gray-700 lg:hidden"
           onClick={() => setCollapsed(!collapsed)}
         >
           {collapsed ? (
@@ -123,23 +127,41 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="mt-5">
-        <ul>
-          {menuItems.map((item) => (
-            <li key={item.name} className="mb-2">
-              <Link
-                to={item.path}
-                className={`flex items-center px-5 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors ${
-                  location.pathname === item.path
-                    ? 'bg-blue-50 text-blue-600'
-                    : ''
-                }`}
-              >
-                <span className="mr-4">{item.icon}</span>
-                {!collapsed && <span>{item.name}</span>}
-              </Link>
-            </li>
-          ))}
+      <nav className="mt-4">
+        <ul className="relative">
+          {/* Positioning the active indicator absolutely */}
+          <div className="absolute left-0 top-0 h-10 w-1 bg-black transition-transform duration-300 ease-in-out pointer-events-none" 
+               style={{
+                 transform: `translateY(${menuItems.findIndex(item => 
+                   location.pathname === item.path || 
+                   (item.path === '/' && location.pathname === '') || 
+                   (item.name === 'Setting' && location.pathname.includes('/setting'))
+                 ) * 40}px)`
+               }}
+          />
+          
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path || 
+                            (item.path === '/' && location.pathname === '') || 
+                            (item.name === 'Setting' && location.pathname.includes('/setting'));
+            return (
+              <li key={item.name} className="h-10 flex items-center">
+                <Link
+                  to={item.path}
+                  className={`flex items-center h-full w-full px-5 transition-colors ${
+                    isActive
+                      ? 'text-black font-medium'
+                      : 'text-gray-400 hover:text-gray-600'
+                  }`}
+                >
+                  <span className={`mr-4 ${isActive ? 'text-black' : 'text-gray-400'}`}>
+                    {item.icon}
+                  </span>
+                  {!collapsed && <span>{item.name}</span>}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </div>
