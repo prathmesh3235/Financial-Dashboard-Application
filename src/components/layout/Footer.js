@@ -5,8 +5,8 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 p-4 border-t text-center text-gray-600">
-      <div>Financial Dashboard © {new Date().getFullYear()}</div>
+    <footer className="bg-white border-t border-gray-200 py-3 px-6 text-center text-gray-500 text-sm">
+      <p>&copy; Soar Financial Dashboard | All Rights Reserved</p>
     </footer>
   );
 };
