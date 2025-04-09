@@ -167,3 +167,10 @@ nav.main-navbar h1 {
 .sidebar-transition {
   transition: all 0.3s ease-in-out;
 }
+
+/* Dashboard section styling */
+.dashboard-section {
+  border-radius: 16px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}

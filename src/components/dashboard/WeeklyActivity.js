@@ -85,14 +85,14 @@ const WeeklyActivity = () => {
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow">
+      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
         <p className="text-red-500">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow">
+    <div className="bg-white rounded-lg p-4 shadow dashboard-section">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Weekly Activity</h2>
       <div className="h-60">
         <Bar options={options} data={chartData} />

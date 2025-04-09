@@ -29,14 +29,14 @@ const MyCards = () => {
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow">
+      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
         <p className="text-red-500">{error}</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="dashboard-section bg-white p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-gray-700">My Cards</h2>
         <button 

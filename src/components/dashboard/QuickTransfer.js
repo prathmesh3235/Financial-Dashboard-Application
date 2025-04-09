@@ -84,7 +84,7 @@ const QuickTransfer = () => {
 
   if (error && !successMessage) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow">
+      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
         <h2 className="text-xl font-semibold text-gray-700 mb-4">Quick Transfer</h2>
         <p className="text-red-500">{error}</p>
       </div>
@@ -92,7 +92,7 @@ const QuickTransfer = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow">
+    <div className="bg-white rounded-lg p-4 shadow dashboard-section">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Quick Transfer</h2>
       
       {successMessage && (
