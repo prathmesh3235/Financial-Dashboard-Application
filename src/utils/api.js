@@ -19,7 +19,7 @@ const cardsData = [
     validThru: '12/22',
     cardNumber: '3778 **** **** 1234',
     type: 'mastercard',
-    bgColor: 'bg-gray-800'
+    bgColor: 'bg-[#2B2B36]'
   },
   {
     id: 2,
