@@ -149,11 +149,8 @@ const QuickTransfer = () => {
       <h2 className="text-2xl font-semibold text-[#374151] mb-4">Quick Transfer</h2>
       
       <div 
-        className="bg-white rounded-3xl shadow-md relative overflow-hidden"
-        style={{ 
-          width: '445px', 
-          height: '276px',
-        }}
+        className="bg-white rounded-3xl shadow-md relative overflow-hidden w-full max-w-md mx-auto md:max-w-lg lg:max-w-xl"
+        style={{ height: '276px' }}
       >
         {successMessage && (
           <div className="bg-green-100 text-green-700 p-2 absolute top-0 left-0 w-full">

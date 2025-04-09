@@ -60,13 +60,14 @@ const BalanceHistory = () => {
         },
         grid: {
           display: true,
-          color: 'rgba(0, 0, 0, 0.05)',
+          color: 'rgba(0, 0, 0, 0.1)',
         },
         ticks: {
           callback: function(value) {
             return value;
           },
           stepSize: 200,
+          color: '#718EBF',
         },
       },
       x: {
@@ -74,7 +75,11 @@ const BalanceHistory = () => {
           display: false,
         },
         grid: {
-          display: false,
+          display: true,
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+        ticks: {
+          color: '#718EBF',
         },
       },
     },
@@ -83,6 +88,15 @@ const BalanceHistory = () => {
       mode: 'index',
     },
   };
+
+  const modifiedChartData = chartData ? {
+    ...chartData,
+    datasets: chartData.datasets.map(dataset => ({
+      ...dataset,
+      borderColor: '#1814F3',
+      backgroundColor: 'rgba(24, 20, 243, 0.1)',
+    })),
+  } : null;
 
   if (loading) return <LoadingState type="chart" />;
 
@@ -95,10 +109,10 @@ const BalanceHistory = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow dashboard-section">
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Balance History</h2>
-      <div className="h-60">
-        <Line options={options} data={chartData} />
+    <div className="p-4 shadow dashboard-section">
+      <h2 className="text-xl font-semibold mb-4" style={{ color: '#343C6A' }}>Balance History</h2>
+      <div className="h-60 bg-white rounded-lg p-4 md:h-80 lg:h-96">
+        {modifiedChartData && <Line options={options} data={modifiedChartData} />}
       </div>
     </div>
   );
