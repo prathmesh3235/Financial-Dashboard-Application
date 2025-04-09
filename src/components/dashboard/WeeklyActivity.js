@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import api from '../../utils/api';
 import LoadingState from '../common/LoadingState';
 
-// Register ChartJS components
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const WeeklyActivity = () => {
@@ -17,7 +17,29 @@ const WeeklyActivity = () => {
       try {
         setLoading(true);
         const data = await api.getWeeklyActivity();
-        setChartData(data);
+        const customData = {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Withdraw',
+              data: data.datasets[0].data,
+              backgroundColor: '#363636',
+              borderRadius: 4,
+              maxBarThickness: 18,
+              order: 1, // Lower order appears first in the stack
+            },
+            {
+              label: 'Deposit',
+              data: data.datasets[1].data,
+              backgroundColor: '#3F7DF6',
+              borderRadius: 4,
+              maxBarThickness: 18,
+              order: 2, // Higher order appears second in the stack
+            }
+          ]
+        };
+        
+        setChartData(customData);
         setLoading(false);
       } catch (err) {
         setError('Failed to load weekly activity data');
@@ -36,9 +58,19 @@ const WeeklyActivity = () => {
         position: 'top',
         align: 'end',
         labels: {
-          boxWidth: 10,
+          boxWidth: 8,
           usePointStyle: true,
           pointStyle: 'circle',
+          padding: 20, // Add more padding between legend items
+          font: {
+            size: 14,
+            family: 'system-ui, -apple-system, sans-serif',
+            color: '#617186'
+          },
+          // Sort legend items to show Deposit first then Withdraw (reverse of visual order)
+          sort: (a, b) => {
+            return a.text === 'Deposit' ? -1 : 1;
+          }
         },
       },
       tooltip: {
@@ -63,10 +95,17 @@ const WeeklyActivity = () => {
           display: false,
         },
         grid: {
-          display: false,
+          display: true,
+          color: 'rgba(0, 0, 0, 0.05)',
+          lineWidth: 1,
         },
         ticks: {
+          color: '#617186',
           maxTicksLimit: 6,
+          font: {
+            size: 12,
+          },
+          padding: 10,
         },
       },
       x: {
@@ -76,25 +115,42 @@ const WeeklyActivity = () => {
         grid: {
           display: false,
         },
+        ticks: {
+          color: '#617186',
+          font: {
+            size: 12,
+          },
+          padding: 5,
+        },
       },
     },
     maintainAspectRatio: false,
+    barPercentage: 0.5,
+    categoryPercentage: 0.4,
+    layout: {
+      padding: {
+        top: 30,
+        right: 10,
+        bottom: 10,
+        left: 10
+      }
+    }
   };
 
   if (loading) return <LoadingState type="chart" />;
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+      <div className="bg-white rounded-lg p-6 shadow dashboard-section">
         <p className="text-red-500">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow dashboard-section">
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Weekly Activity</h2>
-      <div className="h-60">
+    <div className="bg-white rounded-lg p-6 shadow dashboard-section">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-8">Weekly Activity</h2>
+      <div className="h-80">
         <Bar options={options} data={chartData} />
       </div>
     </div>
