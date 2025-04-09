@@ -36,3 +36,121 @@
     transform: rotate(360deg);
   }
 }
+
+/* Custom styles for financial dashboard */
+@media (max-width: 768px) {
+  .md\:pl-64 {
+    padding-left: 0 !important;
+  }
+  
+  /* Mobile sidebar adjustments */
+  .mobile-sidebar {
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ensure title and hamburger don't overlap */
+  .hamburger-btn {
+    position: fixed;
+    top: 1.3rem;
+    left: 1rem;
+    z-index: 40;
+  }
+  
+  /* Mobile navbar adjustments */
+  nav.main-navbar h1 {
+    text-align: center;
+    margin-left: 2rem;
+  }
+}
+
+/* Navbar styling */
+nav.main-navbar {
+  border-bottom: 1px solid #f1f1f3;
+  height: 72px;
+}
+
+nav.main-navbar h1 {
+  font-size: 24px;
+  color: #36406A;
+}
+
+/* Mobile title positioning */
+@media (max-width: 768px) {
+  /* For mobile view - center the Overview title */
+  .mobile-view-title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Search bar styling */
+.search-input {
+  background-color: #f8f9fd;
+  border-radius: 25px;
+  width: 240px;
+}
+
+/* Mobile menu styles */
+.mobile-menu-open {
+  background-color: white;
+  width: 70px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.mobile-menu-open ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobile-menu-open ul li {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.mobile-menu-open .sidebar-icon {
+  margin: 0 auto;
+}
+
+.mobile-menu-open svg {
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+}
+
+.mobile-menu-open li a {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Transition for sidebar */
+.sidebar-transition {
+  transition: all 0.3s ease-in-out;
+}

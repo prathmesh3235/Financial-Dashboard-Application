@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import api from '../../utils/api';
-
 
 const Navbar = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial state
+    checkMobile();
+    
+    // Add event listener
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -22,14 +39,45 @@ const Navbar = () => {
     fetchUserProfile();
   }, []);
 
+  // Get title based on current route
+  const getTitle = () => {
+    if (location.pathname === '/' || location.pathname === '') {
+      return 'Overview';
+    } else if (location.pathname.includes('/transactions')) {
+      return 'Transactions';
+    } else if (location.pathname.includes('/accounts')) {
+      return 'Accounts';
+    } else if (location.pathname.includes('/investments')) {
+      return 'Investments';
+    } else if (location.pathname.includes('/credit-cards')) {
+      return 'Credit Cards';
+    } else if (location.pathname.includes('/loans')) {
+      return 'Loans';
+    } else if (location.pathname.includes('/services')) {
+      return 'Services';
+    } else if (location.pathname.includes('/privileges')) {
+      return 'My Privileges';
+    } else if (location.pathname.includes('/settings')) {
+      return 'Settings';
+    }
+    return 'Overview';
+  };
+
   return (
-    <nav className="bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between">
-      <div className="flex-1 lg:pl-64">
-        <div className="max-w-md w-full relative">
+    <nav className="bg-white py-4 px-6 flex items-center justify-between shadow-sm main-navbar">
+      {/* Title section */}
+      <div className={`flex-shrink-0 ${isMobile ? 'mobile-view-title' : ''}`}>
+        <h1 className="text-2xl font-bold">{getTitle()}</h1>
+      </div>
+
+      {/* Right side controls */}
+      <div className="flex items-center space-x-6">
+        {/* Search - hide on very small screens */}
+        <div className={`relative ${isMobile ? 'hidden sm:block' : ''}`}>
           <input 
             type="text" 
             placeholder="Search for something"
-            className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="pl-10 pr-4 py-2 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-400 text-sm search-input"
           />
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -41,9 +89,7 @@ const Navbar = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-      </div>
 
-      <div className="flex items-center space-x-4">
         {/* Settings */}
         <button className="text-gray-500 hover:text-gray-700">
           <svg 
@@ -78,7 +124,7 @@ const Navbar = () => {
 
         {/* User profile */}
         <div className="flex items-center">
-          <div className="w-8 h-8 rounded-full overflow-hidden">
+          <div className="w-10 h-10 rounded-full overflow-hidden">
             {loading ? (
               <div className="bg-gray-200 animate-pulse w-full h-full"></div>
             ) : (
