@@ -13,15 +13,34 @@ import {
   SoarTaskIcon
 } from '../../assets/icons/SidebarIcons';
 
+// Add CSS to eliminate all borders
+const sidebarStyles = {
+  noBorders: {
+    border: 'none',
+    borderStyle: 'none',
+    outline: 'none'
+  },
+  list: {
+    listStyleType: 'none',
+    padding: 0,
+    margin: 0,
+    border: 'none'
+  },
+  listItem: {
+    border: 'none',
+    borderStyle: 'none'
+  }
+};
+
 const Sidebar = () => {
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Check if mobile screen on initial load and when window resizes
   useEffect(() => {
     const checkMobile = () => {
-      setCollapsed(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 768);
     };
     
     // Set initial state
@@ -37,7 +56,7 @@ const Sidebar = () => {
   // Menu items with icons
   const menuItems = [
     {
-      name: 'Dashboard',
+      name: 'Home',
       icon: <DashboardIcon />,
       path: '/',
     },
@@ -72,124 +91,172 @@ const Sidebar = () => {
       path: '/services',
     },
     {
-      name: 'My Privileges',
+      name: 'Privileges',
       icon: <PrivilegesIcon />,
       path: '/privileges',
     },
     {
-      name: 'Setting',
+      name: 'Settings',
       icon: <SettingsIcon />,
       path: '/settings',
     },
   ];
 
-  // Mobile hamburger button for sidebar toggle
-  const HamburgerButton = () => (
-    <button 
-      className={`md:hidden fixed top-4 left-4 z-30 text-[#36406A] hamburger-btn`}
-      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-      aria-label="Toggle menu"
-    >
-      {!mobileMenuOpen ? (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      ) : (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      )}
-    </button>
+  // Cross/Close icon component
+  const CloseIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
   );
+
+  // Hamburger menu icon component
+  const HamburgerIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  );
+
+  // Render menu items
+  const renderMenuItems = () => {
+    return menuItems.map((item) => {
+      const isActive = location.pathname === item.path || 
+                      (item.path === '/' && (location.pathname === '' || location.pathname === '/')) || 
+                      (item.path === '/settings' && location.pathname.includes('/settings'));
+      
+      return (
+        <li key={item.name} className="h-12 flex items-center" style={sidebarStyles.listItem}>
+          <Link
+            to={item.path}
+            className={`flex items-center h-full w-full px-6 transition-colors ${
+              isActive
+                ? 'text-[#36406A] font-medium'
+                : 'text-gray-400 hover:text-gray-600'
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+            style={sidebarStyles.noBorders}
+          >
+            <span className={`sidebar-icon flex-shrink-0 mr-4 ${isActive ? 'text-[#36406A]' : 'text-gray-400'}`}>
+              {item.icon}
+            </span>
+            <span className="whitespace-nowrap">{item.name}</span>
+          </Link>
+        </li>
+      );
+    });
+  };
+
+  // Active indicator position
+  const getIndicatorPosition = () => {
+    const activeIndex = menuItems.findIndex(item => 
+      location.pathname === item.path || 
+      (item.path === '/' && (location.pathname === '' || location.pathname === '/')) ||
+      (item.path === '/settings' && location.pathname.includes('/settings'))
+    );
+    return `translateY(${activeIndex * 48}px)`;
+  };
 
   return (
     <>
-      {/* Mobile hamburger button */}
-      <HamburgerButton />
-      
-      {/* Overlay for mobile */}
-      {mobileMenuOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-20"
-          onClick={() => setMobileMenuOpen(false)}
-        ></div>
-      )}
-      
-      {/* Sidebar */}
-      <div 
-        className={`bg-white h-screen fixed md:relative transition-all duration-300 shadow-md z-20 sidebar-transition mobile-sidebar
-          ${collapsed && !mobileMenuOpen ? 'w-16' : mobileMenuOpen ? 'w-16' : 'w-64'}
-          ${mobileMenuOpen ? 'left-0 mobile-menu-open' : '-left-64 md:left-0'}
-        `}
-      >
-        {/* Only show header on desktop or expanded mobile menu */}
-        {!mobileMenuOpen && (
-          <div className="py-5 px-5 flex items-center border-b border-gray-100">
+                {/* Desktop sidebar */}
+      {!isMobile && (
+        <div className="hidden md:block bg-white h-screen shadow-md w-64" style={sidebarStyles.noBorders}>
+          {/* Header - aligned with navbar */}
+          <div className="py-5 px-5 flex items-center h-16" style={{borderBottom: '1px solid #f3f4f6', ...sidebarStyles.noBorders}}>
             <div className="w-6 h-7 mr-3 flex-shrink-0">
               <SoarTaskIcon />
             </div>
-            {!collapsed && (
-              <div className="text-xl font-bold text-[#36406A]">Soar Task</div>
-            )}
-            {/* Mobile close button */}
-            <button 
-              className="ml-auto text-gray-500 hover:text-gray-700 md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="text-xl font-bold text-[#36406A]">Soar Task</div>
           </div>
-        )}
 
-        {/* Navigation */}
-        <nav className={`${mobileMenuOpen ? 'mt-4' : 'mt-8'}`}>
-          <ul className={`${mobileMenuOpen ? 'space-y-6' : 'space-y-4'} relative`}>
-            {/* Positioning the active indicator absolutely - hide in mobile menu */}
-            {!mobileMenuOpen && (
-              <div className="absolute left-0 h-10 w-1 bg-[#36406A] transition-transform duration-300 ease-in-out rounded-r-md pointer-events-none" 
-                  style={{
-                    transform: `translateY(${menuItems.findIndex(item => 
-                      location.pathname === item.path || 
-                      (item.path === '/' && location.pathname === '') || 
-                      (item.name === 'Setting' && location.pathname.includes('/setting'))
-                    ) * 48}px)`
-                  }}
+          {/* Navigation */}
+          <nav className="mt-8">
+            <ul className="space-y-0 relative" style={sidebarStyles.list}>
+              {/* Active indicator */}
+              <div 
+                className="absolute left-0 h-10 w-1 bg-[#36406A] transition-transform duration-300 ease-in-out rounded-r-md pointer-events-none" 
+                style={{
+                  transform: getIndicatorPosition(),
+                  ...sidebarStyles.noBorders
+                }}
               />
-            )}
-            
-            {menuItems.map((item) => {
-              const isActive = location.pathname === item.path || 
-                              (item.path === '/' && location.pathname === '') || 
-                              (item.name === 'Setting' && location.pathname.includes('/setting'));
-              return (
-                <li key={item.name} className={`${mobileMenuOpen ? 'py-2' : 'h-12'} flex items-center`}>
-                  <Link
-                    to={item.path}
-                    className={`flex items-center h-full w-full ${mobileMenuOpen ? 'justify-center px-0' : 'px-6'} transition-colors ${
-                      isActive
-                        ? 'text-[#36406A] font-medium'
-                        : 'text-gray-400 hover:text-gray-600'
-                    }`}
-                    onClick={() => {
-                      if (window.innerWidth < 768) {
-                        setMobileMenuOpen(false);
-                      }
+              
+              {renderMenuItems()}
+            </ul>
+          </nav>
+        </div>
+      )}
+
+      {/* Mobile sidebar */}
+      {isMobile && (
+        <>
+          {/* Mobile sidebar toggle button - removed since we have X in the header */}
+          {!mobileMenuOpen && (
+            <button 
+              className="fixed top-4 left-4 z-30 p-2 rounded-md bg-white shadow text-gray-700"
+              onClick={() => setMobileMenuOpen(true)}
+              style={sidebarStyles.noBorders}
+            >
+              <HamburgerIcon />
+            </button>
+          )}
+
+          {/* Mobile sidebar panel */}
+          <div 
+            className={`fixed inset-0 z-20 transition-transform duration-300 ease-in-out transform ${
+              mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
+            style={sidebarStyles.noBorders}
+          >
+            <div className="h-full w-64 bg-white shadow-md flex flex-col" style={sidebarStyles.noBorders}>
+              {/* Header */}
+              <div className="py-5 px-5 flex items-center justify-center relative h-16" style={{borderBottom: '1px solid #f3f4f6', ...sidebarStyles.noBorders}}>
+                {/* Close button (X) positioned absolutely to the left */}
+                <button 
+                  className="absolute left-4 text-gray-500"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={sidebarStyles.noBorders}
+                >
+                  <CloseIcon />
+                </button>
+                
+                {/* Logo and text centered in the header */}
+                <div className="flex items-center">
+                  <div className="w-6 h-7 mr-3 flex-shrink-0">
+                    <SoarTaskIcon />
+                  </div>
+                  <div className="text-xl font-bold text-[#36406A]">Soar Task</div>
+                </div>
+              </div>
+
+              {/* Navigation */}
+              <nav className="mt-8 flex-1 overflow-y-auto">
+                <ul className="space-y-0 relative" style={sidebarStyles.list}>
+                  {/* Active indicator */}
+                  <div 
+                    className="absolute left-0 h-10 w-1 bg-[#36406A] transition-transform duration-300 ease-in-out rounded-r-md pointer-events-none" 
+                    style={{
+                      transform: getIndicatorPosition(),
+                      ...sidebarStyles.noBorders
                     }}
-                  >
-                    <span className={`sidebar-icon flex-shrink-0 ${mobileMenuOpen ? '' : collapsed ? 'mx-auto' : 'mr-4'} ${isActive ? 'text-[#36406A]' : 'text-gray-400'}`}>
-                      {item.icon}
-                    </span>
-                    {(!collapsed || (mobileMenuOpen && false)) && !mobileMenuOpen && <span className="whitespace-nowrap">{item.name}</span>}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
+                  />
+                  
+                  {renderMenuItems()}
+                </ul>
+              </nav>
+            </div>
+            
+            {/* Close sidebar when clicking outside */}
+            <div 
+              className="absolute inset-0 -z-10 bg-black bg-opacity-50" 
+              onClick={() => setMobileMenuOpen(false)}
+              style={sidebarStyles.noBorders}
+            ></div>
+          </div>
+        </>
+      )}
     </>
   );
 };
