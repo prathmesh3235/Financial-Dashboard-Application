@@ -28,8 +28,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
-        <Sidebar />
-        <div className="flex flex-col flex-1 overflow-hidden w-full">
+      <Sidebar className="fixed h-full w-64 z-10" />
+
+        <div className="flex flex-col flex-1 overflow-hidden w-full md:ml-64">
           <Navbar />
           <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
             <Routes>

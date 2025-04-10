@@ -56,21 +56,33 @@ const ExpenseStatistics = () => {
     maintainAspectRatio: false,
   };
 
-  if (loading) return <LoadingState type="chart" />;
+  if (loading) return (
+    <div>
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Expense Statistics</h2>
+      <div className="bg-white rounded-lg p-4 shadow">
+        <LoadingState type="chart" />
+      </div>
+    </div>
+  );
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
-        <p className="text-red-500">{error}</p>
+      <div>
+        <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Expense Statistics</h2>
+        <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+          <p className="text-red-500">{error}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow dashboard-section">
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Expense Statistics</h2>
-      <div className="h-60 flex items-center justify-center">
-        <Pie data={chartData} options={options} />
+    <div>
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Expense Statistics</h2>
+      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+        <div className="h-60 flex items-center justify-center">
+          <Pie data={chartData} options={options} />
+        </div>
       </div>
     </div>
   );

@@ -162,7 +162,7 @@ const Sidebar = () => {
     <>
                 {/* Desktop sidebar */}
       {!isMobile && (
-        <div className="hidden md:block bg-white h-screen shadow-md w-64" style={sidebarStyles.noBorders}>
+        <div className="hidden md:block bg-white h-screen shadow-md w-64 fixed" style={sidebarStyles.noBorders}>
           {/* Header - aligned with navbar */}
           <div className="py-5 px-5 flex items-center h-16" style={{borderBottom: '1px solid #f3f4f6', ...sidebarStyles.noBorders}}>
             <div className="w-6 h-7 mr-3 flex-shrink-0">

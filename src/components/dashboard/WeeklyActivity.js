@@ -137,21 +137,33 @@ const WeeklyActivity = () => {
     }
   };
 
-  if (loading) return <LoadingState type="chart" />;
+  if (loading) return (
+    <div>
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
+      <div className="bg-white rounded-lg p-6 shadow">
+        <LoadingState type="chart" />
+      </div>
+    </div>
+  );
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg p-6 shadow dashboard-section">
-        <p className="text-red-500">{error}</p>
+      <div>
+        <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
+        <div className="bg-white rounded-lg p-6 shadow dashboard-section">
+          <p className="text-red-500">{error}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow dashboard-section">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-8">Weekly Activity</h2>
-      <div className="h-80">
-        <Bar options={options} data={chartData} />
+    <div>
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
+      <div className="bg-white rounded-lg p-6 shadow dashboard-section">
+        <div className="h-80">
+          <Bar options={options} data={chartData} />
+        </div>
       </div>
     </div>
   );

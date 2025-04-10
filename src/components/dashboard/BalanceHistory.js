@@ -102,17 +102,22 @@ const BalanceHistory = () => {
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
-        <p className="text-red-500">{error}</p>
+      <div>
+        <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
+        <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+          <p className="text-red-500">{error}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-4 shadow dashboard-section">
-      <h2 className="text-xl font-semibold mb-4" style={{ color: '#343C6A' }}>Balance History</h2>
-      <div className="h-60 bg-white rounded-lg p-4 md:h-80 lg:h-96">
-        {modifiedChartData && <Line options={options} data={modifiedChartData} />}
+    <div>
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
+      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+        <div className="h-60 md:h-80 lg:h-96">
+          {modifiedChartData && <Line options={options} data={modifiedChartData} />}
+        </div>
       </div>
     </div>
   );
