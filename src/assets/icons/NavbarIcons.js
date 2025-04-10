@@ -1,4 +1,5 @@
 import React from 'react';
+import accountDp from '../images/profiles/account_dp.png';
 
 // Settings icon
 export const SettingsIcon = () => (
@@ -64,22 +65,7 @@ export const SidebarLogo = () => (
 
 // Profile icon
 export const ProfileIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    className="h-10 w-10" 
-    fill="#E1D9F4"
-    viewBox="0 0 24 24" 
-    stroke="currentColor"
-  >
-    <circle cx="12" cy="12" r="12" fill="#E1D9F4" />
-    <path 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      strokeWidth="1" 
-      d="M12 11c1.93 0 3.5-1.57 3.5-3.5S13.93 4 12 4 8.5 5.57 8.5 7.5 10.07 11 12 11zm0 1c-2.33 0-7 1.17-7 3.5V18h14v-2.5c0-2.33-4.67-3.5-7-3.5z" 
-      fill="#323232"
-    />
-  </svg>
+  <img src={accountDp} alt="Profile" className="h-10 w-10" />
 );
 
 // Search icon

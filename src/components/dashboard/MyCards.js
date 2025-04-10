@@ -51,32 +51,36 @@ const MyCards = () => {
         {cards.map((card) => (
           <div 
             key={card.id}
-            className={`${card.bgColor} ${card.bgColor === 'bg-white' ? 'text-gray-800 border border-gray-200 card-visa' : 'text-white card-mastercard'} p-6 rounded-2xl flex flex-col justify-between h-[220px] min-w-[350px] relative overflow-hidden`}
+            className={`${card.bgColor} ${card.bgColor === 'bg-white' ? 'text-gray-800 border border-gray-200 card-visa' : 'text-white card-mastercard'} p-3 rounded-2xl flex flex-col justify-between h-[170px] min-w-[280px] relative overflow-hidden md:p-6 md:h-[220px] md:min-w-[350px]`}
           >
             <div className="flex justify-between">
               <div>
                 <p className="text-xs uppercase opacity-70">Balance</p>
-                <p className="text-2xl font-semibold mt-1">${card.balance.toLocaleString()}</p>
+                <p className="text-xl font-semibold mt-1 md:text-2xl">
+                  ${card.balance.toLocaleString()}
+                </p>
               </div>
-              <div className="h-8 w-10 flex items-center justify-center">
+              <div className="h-6 w-8 flex items-center justify-center md:h-8 md:w-10">
                 {card.bgColor === 'bg-white' ? <WhiteCardChip /> : <BlackCardChip />}
               </div>
             </div>
             
             <div>
-              <div className="mb-4">
+              <div className="mb-2 md:mb-4">
                 <p className="text-xs uppercase opacity-70">CARD HOLDER</p>
-                <p className="font-medium mt-1">{card.cardHolder}</p>
+                <p className="font-medium mt-1 text-sm md:text-base">{card.cardHolder}</p>
               </div>
               
               <div className="flex justify-between items-end">
                 <div>
                   <p className="text-xs uppercase opacity-70">VALID THRU</p>
-                  <p className="font-medium mt-1">{card.validThru}</p>
+                  <p className="font-medium mt-1 text-sm md:text-base">{card.validThru}</p>
                 </div>
                 <div className="flex items-center">
-                  <p className="text-base font-medium mr-2">{card.cardNumber}</p>
-                  {card.type === 'mastercard' ? <MastercardLogo /> : <VisaLogo />}
+                  <p className="text-sm font-medium mr-2 md:text-base">{card.cardNumber}</p>
+                  <span className="scale-75 md:scale-100">
+                    {card.type === 'mastercard' ? <MastercardLogo /> : <VisaLogo />}
+                  </span>
                 </div>
               </div>
             </div>
@@ -87,4 +91,4 @@ const MyCards = () => {
   );
 };
 
-export default MyCards; 
+export default MyCards;
