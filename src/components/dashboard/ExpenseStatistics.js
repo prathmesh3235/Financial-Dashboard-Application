@@ -59,7 +59,7 @@ const ExpenseStatistics = () => {
   if (loading) return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Expense Statistics</h2>
-      <div className="bg-white rounded-lg p-4 shadow">
+      <div className="rounded-lg p-4 md:bg-white md:shadow">
         <LoadingState type="chart" />
       </div>
     </div>
@@ -69,7 +69,7 @@ const ExpenseStatistics = () => {
     return (
       <div>
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Expense Statistics</h2>
-        <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+        <div className="rounded-lg p-4 md:bg-white md:shadow">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -79,7 +79,7 @@ const ExpenseStatistics = () => {
   return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Expense Statistics</h2>
-      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+      <div className="rounded-lg p-4 md:bg-white md:shadow">
         <div className="h-60 flex items-center justify-center">
           <Pie data={chartData} options={options} />
         </div>

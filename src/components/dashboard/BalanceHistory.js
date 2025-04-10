@@ -104,7 +104,7 @@ const BalanceHistory = () => {
     return (
       <div>
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
-        <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+        <div className="rounded-lg p-4 md:bg-white md:shadow">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -114,7 +114,7 @@ const BalanceHistory = () => {
   return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
-      <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+      <div className="rounded-lg p-4 md:bg-white md:shadow">
         <div className="h-60 md:h-80 lg:h-96">
           {modifiedChartData && <Line options={options} data={modifiedChartData} />}
         </div>

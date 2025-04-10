@@ -5,7 +5,7 @@ import React from 'react';
 
 const Summary = () => {
   return (
-    <div className="p-4 dashboard-section bg-white">
+    <div className="p-4 md:bg-white">
       <h2 className="text-lg font-semibold">Financial Summary</h2>
       <p>Summary component will be implemented later.</p>
     </div>

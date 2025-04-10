@@ -45,7 +45,7 @@ const RecentTransactions = () => {
   if (loading) return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Recent Transaction</h2>
-      <div className="bg-white rounded-lg p-4 shadow">
+      <div className="rounded-lg p-4 md:bg-white md:shadow">
         <LoadingState type="card" />
       </div>
     </div>
@@ -55,7 +55,7 @@ const RecentTransactions = () => {
     return (
       <div>
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Recent Transaction</h2>
-        <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+        <div className="rounded-lg p-4 md:bg-white md:shadow">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -65,7 +65,7 @@ const RecentTransactions = () => {
   return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Recent Transaction</h2>
-      <div className="bg-white p-6 border border-blue-100 rounded-lg shadow dashboard-section">
+      <div className="p-6 rounded-lg md:bg-white md:shadow md:border md:border-blue-100">
         <div className="space-y-6">
           {transactions.map((transaction) => (
             <div key={transaction.id} className="flex items-center justify-between">

@@ -140,7 +140,7 @@ const WeeklyActivity = () => {
   if (loading) return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
-      <div className="bg-white rounded-lg p-6 shadow">
+      <div className="rounded-lg p-6 md:bg-white md:shadow">
         <LoadingState type="chart" />
       </div>
     </div>
@@ -150,7 +150,7 @@ const WeeklyActivity = () => {
     return (
       <div>
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
-        <div className="bg-white rounded-lg p-6 shadow dashboard-section">
+        <div className="rounded-lg p-6 md:bg-white md:shadow">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -160,7 +160,7 @@ const WeeklyActivity = () => {
   return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
-      <div className="bg-white rounded-lg p-6 shadow dashboard-section">
+      <div className="rounded-lg p-6 md:bg-white md:shadow">
         <div className="h-80">
           <Bar options={options} data={chartData} />
         </div>

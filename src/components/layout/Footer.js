@@ -5,7 +5,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 py-3 px-6 text-center text-gray-500 text-sm">
+    <footer className="md:bg-white border-t border-gray-200 py-3 px-6 text-center text-gray-500 text-sm">
       <p>&copy; Soar Financial Dashboard | All Rights Reserved</p>
     </footer>
   );

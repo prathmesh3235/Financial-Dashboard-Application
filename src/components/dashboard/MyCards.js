@@ -25,13 +25,20 @@ const MyCards = () => {
     fetchCards();
   }, []);
 
-  if (loading) return <LoadingState type="card" />;
+  if (loading) return (
+    <div>
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">My Cards</h2>
+      <div className="rounded-lg p-4 md:bg-white md:shadow">
+        <LoadingState type="card" />
+      </div>
+    </div>
+  );
 
   if (error) {
     return (
       <div>
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">My Cards</h2>
-        <div className="bg-white rounded-lg p-4 shadow dashboard-section">
+        <div className="rounded-lg p-4 md:bg-white md:shadow">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -40,17 +47,16 @@ const MyCards = () => {
 
   return (
     <div>
-      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">My Cards</h2>
-      <div className="dashboard-section bg-white p-6 rounded-lg shadow">
-        <div className="flex justify-end items-center mb-6">
-          <button 
-            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
-            onClick={() => console.log('View all cards')}
-          >
-            See All
-          </button>
-        </div>
-        
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">My Cards</h2>
+        <button 
+          className="text-[#343C6A] text-sm font-medium"
+          onClick={() => console.log('View all cards')}
+        >
+          See All
+        </button>
+      </div>
+      <div className="p-6 rounded-lg md:bg-white md:shadow">
         <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-hide">
           {cards.map((card) => (
             <div 

@@ -148,7 +148,7 @@ const QuickTransfer = () => {
   if (loading) return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
-      <div className="bg-white rounded-3xl p-4 shadow-md">
+      <div className="rounded-3xl p-4 md:bg-white md:shadow-md">
         <LoadingState type="card" />
       </div>
     </div>
@@ -158,7 +158,7 @@ const QuickTransfer = () => {
     return (
       <div>
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
-        <div className="bg-white rounded-3xl p-4 shadow-md">
+        <div className="rounded-3xl p-4 md:bg-white md:shadow-md">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -170,7 +170,7 @@ const QuickTransfer = () => {
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
       
       <div 
-        className="bg-white rounded-3xl shadow-md relative overflow-hidden w-full"
+        className="rounded-3xl md:bg-white md:shadow-md relative overflow-hidden w-full"
         style={{ height: '300px' }}
       >
         {successMessage && (
