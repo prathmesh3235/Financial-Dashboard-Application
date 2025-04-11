@@ -207,7 +207,11 @@ const Settings = () => {
                       alt="Profile" 
                       className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border"
                     />
-                    <button className="absolute bottom-0 right-0 bg-[#232323] p-1 rounded-full">
+                    <button 
+                      type="button" 
+                      onClick={(e) => e.preventDefault()}
+                      className="absolute bottom-0 right-0 bg-[#232323] p-1 rounded-full"
+                    >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 2.5L11.5 4M11.5 4L9.5 6L11.5 4ZM11.5 4L13.5 6L11.5 4Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M7.5 8L9.5 6L7.5 8ZM9.5 6L11.5 8L9.5 6Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
