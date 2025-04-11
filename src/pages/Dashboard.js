@@ -28,7 +28,7 @@ const Dashboard = () => {
       </div>
 
       {/* Bottom row with fixed widths - 40px gap to match grid width */}
-      <div className="mt-6 flex gap-10">
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <QuickTransfer />
         </div>

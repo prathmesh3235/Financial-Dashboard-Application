@@ -146,6 +146,22 @@ const QuickTransfer = () => {
     }
   };
 
+  // Add effect to clear success message after 3 seconds
+  useEffect(() => {
+    let timeoutId;
+    if (successMessage) {
+      timeoutId = setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
+    // Cleanup timeout on unmount or when successMessage changes
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [successMessage]);
+
   if (loading) return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
@@ -171,25 +187,24 @@ const QuickTransfer = () => {
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
       
       <div 
-        className="rounded-[20px] p-8 bg-white shadow-md overflow-hidden relative"
-        style={{ width: '445px', height: '276px' }}
+        className="rounded-[20px] p-4 sm:p-8 sm:bg-white sm:shadow-md overflow-hidden relative w-full"
       >
         {successMessage && (
-          <div className="bg-green-100 text-green-700 p-2 absolute top-0 left-0 w-full">
+          <div className="bg-[#E8F2EE] text-[#1A9882] p-3 px-4 text-sm absolute top-0 left-0 right-0 z-10">
             {successMessage}
           </div>
         )}
         
         {error && successMessage && (
-          <div className="bg-red-100 text-red-700 p-2 absolute top-0 left-0 w-full">
+          <div className="bg-red-50 text-red-700 p-3 px-4 text-sm absolute top-0 left-0 right-0 z-10">
             {error}
           </div>
         )}
         
-        <div className="flex flex-col space-y-12">
+        <div className="flex flex-col space-y-8 sm:space-y-12">
           {/* Contact selection section */}
-          <div className="flex items-center justify-between">
-            <div className="flex gap-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+            <div className="flex items-center gap-4 sm:gap-8 mb-4 sm:mb-0">
               {contacts.map((contact) => (
                 <ContactItem 
                   key={contact.id}
@@ -198,17 +213,17 @@ const QuickTransfer = () => {
                   onClick={() => handleSelectContact(contact.id)}
                 />
               ))}
-            </div>
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5F7FA] text-[#718EBF] hover:bg-gray-200 cursor-pointer ml-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5F7FA] text-[#718EBF] hover:bg-gray-200 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
           </div>
 
           {/* Amount input section */}
-          <div className="flex items-center">
-            <span className="text-[#718EBF] text-lg mr-6">Write Amount</span>
+          <div className="flex flex-col sm:flex-row sm:items-center">
+            <span className="text-[#718EBF] text-lg mb-4 sm:mb-0 sm:mr-6">Write Amount</span>
             
             <div className="relative flex-1">
               <div 
