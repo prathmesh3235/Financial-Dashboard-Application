@@ -250,7 +250,7 @@ const Sidebar = () => {
             
             {/* Close sidebar when clicking outside */}
             <div 
-              className="absolute inset-0 -z-10 bg-black bg-opacity-50" 
+              className="absolute inset-0 -z-10" 
               onClick={() => setMobileMenuOpen(false)}
               style={sidebarStyles.noBorders}
             ></div>

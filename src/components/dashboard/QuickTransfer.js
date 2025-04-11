@@ -35,15 +35,17 @@ const ContactItem = ({ contact, isSelected, onClick }) => {
       className={`flex flex-col items-center cursor-pointer transition-all duration-200 ${isSelected ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
       onClick={onClick}
     >
-      <div className={`w-[52px] h-[52px] rounded-full overflow-hidden mb-2 ${isSelected ? 'ring-2 ring-[#718EBF]' : ''}`}>
+      <div className={`w-[52px] h-[52px] rounded-full overflow-hidden mb-1 sm:mb-2 ${isSelected ? 'ring-2 ring-[#718EBF]' : ''}`}>
         <img 
           src={contact.avatar} 
           alt={contact.name} 
           className="w-full h-full object-cover"
         />
       </div>
-      <p className="text-base font-semibold text-[#343C6A] mb-1">{contact.name}</p>
-      <p className="text-sm text-[#718EBF]">{contact.role}</p>
+      <div className="text-center min-w-[52px]">
+        <p className="text-sm sm:text-base font-semibold text-[#343C6A] leading-tight">{contact.name}</p>
+        <p className="text-xs sm:text-sm text-[#718EBF] leading-tight mt-0.5">{contact.role}</p>
+      </div>
     </div>
   );
 };
