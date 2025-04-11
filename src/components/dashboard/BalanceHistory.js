@@ -101,6 +101,14 @@ const BalanceHistory = () => {
         },
       },
     },
+    layout: {
+      padding: {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10
+      }
+    },
     interaction: {
       intersect: false,
       mode: 'index',
@@ -120,13 +128,20 @@ const BalanceHistory = () => {
     })),
   } : null;
 
-  if (loading) return <LoadingState type="chart" />;
+  if (loading) return (
+    <div className="h-[323px]">
+      <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
+      <div className="rounded-lg p-4 md:bg-white md:shadow h-[291px]">
+        <LoadingState type="chart" />
+      </div>
+    </div>
+  );
 
   if (error) {
     return (
-      <div>
+      <div className="h-[323px]">
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
-        <div className="rounded-lg p-4 md:bg-white md:shadow">
+        <div className="rounded-lg p-4 md:bg-white md:shadow h-[291px]">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -134,10 +149,10 @@ const BalanceHistory = () => {
   }
 
   return (
-    <div>
+    <div className="h-[323px] ">
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
-      <div className="rounded-lg p-4 sm:p-6 md:bg-white md:shadow overflow-hidden w-full">
-        <div className="h-[200px] sm:h-[233px]">
+      <div className="rounded-lg p-4 md:bg-white md:shadow overflow-hidden w-full lg: h-[291px]">
+        <div className="h-full -mx-2">
           {modifiedChartData && <Line options={options} data={modifiedChartData} />}
         </div>
       </div>

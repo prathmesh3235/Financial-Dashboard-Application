@@ -165,9 +165,9 @@ const QuickTransfer = () => {
   }, [successMessage]);
 
   if (loading) return (
-    <div>
+    <div className="h-[323px]">
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
-      <div className="rounded-3xl p-6 md:bg-white md:shadow-md h-[320px] overflow-hidden">
+      <div className="rounded-3xl p-6 md:bg-white md:shadow-md h-[291px] overflow-hidden">
         <LoadingState type="card" />
       </div>
     </div>
@@ -175,9 +175,9 @@ const QuickTransfer = () => {
 
   if (error && !successMessage) {
     return (
-      <div>
+      <div className="h-[323px]">
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
-        <div className="rounded-3xl p-6 md:bg-white md:shadow-md h-[320px] overflow-hidden">
+        <div className="rounded-3xl p-6 md:bg-white md:shadow-md h-[291px] overflow-hidden">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -185,11 +185,12 @@ const QuickTransfer = () => {
   }
 
   return (
-    <div>
+    <div className="h-[323px]">
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Quick Transfer</h2>
       
       <div 
-        className="rounded-[20px] p-4 sm:p-8 sm:bg-white sm:shadow-md overflow-hidden relative w-full"
+        className="rounded-[20px] p-4 sm:p-8 sm:bg-white sm:shadow-md overflow-hidden relative w-full h-[291px]"
+        style={{ maxWidth: '445px' }}
       >
         {successMessage && (
           <div className="bg-[#E8F2EE] text-[#1A9882] p-3 px-4 text-sm absolute top-0 left-0 right-0 z-10">
@@ -206,7 +207,7 @@ const QuickTransfer = () => {
         <div className="flex flex-col space-y-8 sm:space-y-12">
           {/* Contact selection section */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between">
-            <div className="flex items-center gap-4 sm:gap-8 mb-4 sm:mb-0">
+            <div className="flex items-center gap-4 sm:gap-7 mb-4 sm:mb-0">
               {contacts.map((contact) => (
                 <ContactItem 
                   key={contact.id}

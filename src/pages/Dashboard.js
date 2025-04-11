@@ -28,11 +28,11 @@ const Dashboard = () => {
       </div>
 
       {/* Bottom row with fixed widths - 40px gap to match grid width */}
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-2">
+        <div className="lg:max-w-[445px] w-full">
           <QuickTransfer />
         </div>
-        <div>
+        <div className="lg:w-[635px] w-full -ml-4">
           <BalanceHistory />
         </div>
       </div>
