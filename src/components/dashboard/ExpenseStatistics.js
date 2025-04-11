@@ -24,8 +24,19 @@ const ExpenseStatistics = () => {
       .attr('width', width)
       .attr('height', height)
       .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('style', 'max-width: 100%; height: auto;')
-      .append('g')
+      .attr('style', 'max-width: 100%; height: auto;');
+
+    // Add filter definition for text shadow
+    const defs = svg.append('defs');
+    defs.append('filter')
+      .attr('id', 'text-shadow')
+      .append('feDropShadow')
+      .attr('dx', '0')
+      .attr('dy', '0')
+      .attr('stdDeviation', '1')
+      .attr('flood-color', 'rgba(0,0,0,0.5)');
+
+    const chartGroup = svg.append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
     
     // Custom pie layout with exact angles to match the reference image
@@ -114,7 +125,7 @@ const ExpenseStatistics = () => {
     };
     
     // Draw pie slices without animation
-    svg.selectAll('path')
+    chartGroup.selectAll('path')
       .data(pieData)
       .enter()
       .append('path')
@@ -174,7 +185,7 @@ const ExpenseStatistics = () => {
     };
     
     // Add percentage labels without animation
-    svg.selectAll('.percentage-label')
+    chartGroup.selectAll('.percentage-label')
       .data(pieData)
       .enter()
       .append('text')
@@ -189,11 +200,12 @@ const ExpenseStatistics = () => {
       .style('font-weight', 'bold')
       .style('fill', 'white')
       .style('filter', 'url(#text-shadow)')
+      .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.5)')
       .style('opacity', 1)
       .text(d => `${d.data.value}%`);
 
     // Add category labels without animation
-    svg.selectAll('.category-label')
+    chartGroup.selectAll('.category-label')
       .data(pieData)
       .enter()
       .append('text')
@@ -208,6 +220,7 @@ const ExpenseStatistics = () => {
       .style('font-weight', '500')
       .style('fill', 'white')
       .style('filter', 'url(#text-shadow)')
+      .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.5)')
       .style('opacity', 1)
       .text(d => d.data.displayName);
   }, [data]);

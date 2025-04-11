@@ -32,7 +32,7 @@ const Dashboard = () => {
         <div className="lg:max-w-[445px] w-full">
           <QuickTransfer />
         </div>
-        <div className="lg:w-[635px] w-full -ml-4">
+        <div className="lg:w-full">
           <BalanceHistory />
         </div>
       </div>
