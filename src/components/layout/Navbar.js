@@ -151,7 +151,12 @@ const Navbar = () => {
               {loading ? (
                 <div className="bg-gray-200 animate-pulse w-full h-full"></div>
               ) : (
-                <ProfileIcon />
+                <>
+                  <ProfileIcon />
+                  {userProfile && (
+                    <span className="ml-2 text-sm text-gray-700">{userProfile.name}</span>
+                  )}
+                </>
               )}
             </div>
           </div>

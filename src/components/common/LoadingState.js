@@ -1,19 +1,19 @@
 import React from 'react';
 
 // Loading spinner component
-const LoadingSpinner = () => (
+export const LoadingSpinner = () => (
   <div className="flex justify-center items-center h-full">
     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
   </div>
 );
 
 // Loading skeleton for text
-const TextSkeleton = ({ width = 'w-full', height = 'h-4' }) => (
+export const TextSkeleton = ({ width = 'w-full', height = 'h-4' }) => (
   <div className={`${width} ${height} bg-gray-200 rounded animate-pulse`}></div>
 );
 
 // Loading skeleton for card
-const CardSkeleton = () => (
+export const CardSkeleton = () => (
   <div className="bg-white rounded-lg p-4 shadow animate-pulse">
     <div className="flex justify-between items-center mb-4">
       <div className="h-6 bg-gray-200 rounded w-1/4"></div>
@@ -28,7 +28,7 @@ const CardSkeleton = () => (
 );
 
 // Loading skeleton for chart
-const ChartSkeleton = () => (
+export const ChartSkeleton = () => (
   <div className="bg-white rounded-lg p-4 shadow">
     <div className="h-6 bg-gray-200 rounded w-1/4 mb-4 animate-pulse"></div>
     <div className="h-60 bg-gray-100 rounded animate-pulse flex items-center justify-center">

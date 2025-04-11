@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import * as d3 from 'd3';
 import api from '../../utils/api';
 import LoadingState from '../common/LoadingState';
@@ -9,51 +9,9 @@ const ExpenseStatistics = () => {
   const [error, setError] = useState(null);
   const chartRef = useRef(null);
 
-  useEffect(() => {
-    const fetchExpenseStatistics = async () => {
-      try {
-        setLoading(true);
-        const response = await api.getExpenseStatistics();
-        
-        // Updated percentages and colors to match the specified values
-        const fixedData = [
-          { category: 'Entertainment', value: 30, color: '#343C6A', displayName: 'Entertainment' }, // Dark blue for Entertainment
-          { category: 'Bill Expense', value: 15, color: '#FC7900', displayName: 'Bill Expense' },  // Orange for Bill Expense
-          { category: 'Investment', value: 20, color: '#396AFF', displayName: 'Investment' },    // Blue for Investment
-          { category: 'Others', value: 35, color: '#232323', displayName: 'Others' }         // Dark gray for Others
-        ];
-        
-        // Make sure we have all the categories in the API response
-        const apiCategories = response.labels;
-        for (const category of ['Entertainment', 'Bill Expense', 'Investment', 'Others']) {
-          if (!apiCategories.includes(category)) {
-            console.warn(`Category ${category} not found in API response, using hardcoded value`);
-          }
-        }
-        
-        setData(fixedData);
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load expense statistics data');
-        setLoading(false);
-        console.error('Error fetching expense statistics:', err);
-      }
-    };
-
-    fetchExpenseStatistics();
-  }, []);
-
-  useEffect(() => {
+  const createSplitPieChart = useCallback(() => {
     if (!data || !chartRef.current) return;
     
-    // Clear any existing SVG
-    d3.select(chartRef.current).selectAll('*').remove();
-    
-    // Create new chart
-    createSplitPieChart();
-  }, [data]);
-
-  const createSplitPieChart = () => {
     // Chart dimensions
     const width = 450;
     const height = 450;
@@ -119,32 +77,11 @@ const ExpenseStatistics = () => {
     
     const pieData = customPie();
     
-    // Arc generators for animation
-    const arcInitial = d3.arc()
-      .innerRadius(0)
-      .outerRadius(0) // Start with zero radius for growth animation
-      .cornerRadius(0);
-      
+    // Arc generator for final state
     const arcFinal = d3.arc()
       .innerRadius(0)
       .outerRadius(radius)
       .cornerRadius(0);
-    
-    // Add shadow filter for better text readability
-    const defs = svg.append("defs");
-    const filter = defs.append("filter")
-      .attr("id", "text-shadow")
-      .attr("filterUnits", "userSpaceOnUse")
-      .attr("width", "250%")
-      .attr("height", "250%");
-    
-    // Create shadow effect
-    filter.append("feDropShadow")
-      .attr("dx", "0")
-      .attr("dy", "0")
-      .attr("stdDeviation", "1")
-      .attr("flood-color", "rgba(0,0,0,0.5)")
-      .attr("flood-opacity", "0.7");
     
     // Calculate explosion offsets for each slice (to match the image)
     const getExplosionOffset = (d) => {
@@ -165,6 +102,9 @@ const ExpenseStatistics = () => {
         case 'Others':
           distance = 6;
           break;
+        default:
+          distance = 5;
+          break;
       }
       
       return {
@@ -174,7 +114,7 @@ const ExpenseStatistics = () => {
     };
     
     // Draw pie slices without animation
-    const paths = svg.selectAll('path')
+    svg.selectAll('path')
       .data(pieData)
       .enter()
       .append('path')
@@ -234,7 +174,7 @@ const ExpenseStatistics = () => {
     };
     
     // Add percentage labels without animation
-    const percentageLabels = svg.selectAll('.percentage-label')
+    svg.selectAll('.percentage-label')
       .data(pieData)
       .enter()
       .append('text')
@@ -253,7 +193,7 @@ const ExpenseStatistics = () => {
       .text(d => `${d.data.value}%`);
 
     // Add category labels without animation
-    const categoryLabels = svg.selectAll('.category-label')
+    svg.selectAll('.category-label')
       .data(pieData)
       .enter()
       .append('text')
@@ -270,7 +210,43 @@ const ExpenseStatistics = () => {
       .style('filter', 'url(#text-shadow)')
       .style('opacity', 1)
       .text(d => d.data.displayName);
-  };
+  }, [data]);
+
+  useEffect(() => {
+    const fetchExpenseStatistics = async () => {
+      try {
+        setLoading(true);
+        await api.getExpenseStatistics(); // We're not using the response
+        
+        // Updated percentages and colors to match the specified values
+        const fixedData = [
+          { category: 'Entertainment', value: 30, color: '#343C6A', displayName: 'Entertainment' },
+          { category: 'Bill Expense', value: 15, color: '#FC7900', displayName: 'Bill Expense' },
+          { category: 'Investment', value: 20, color: '#396AFF', displayName: 'Investment' },
+          { category: 'Others', value: 35, color: '#232323', displayName: 'Others' }
+        ];
+        
+        setData(fixedData);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load expense statistics data');
+        setLoading(false);
+        console.error('Error fetching expense statistics:', err);
+      }
+    };
+
+    fetchExpenseStatistics();
+  }, []);
+
+  useEffect(() => {
+    if (!data || !chartRef.current) return;
+    
+    // Clear any existing SVG
+    d3.select(chartRef.current).selectAll('*').remove();
+    
+    // Create new chart
+    createSplitPieChart();
+  }, [data, createSplitPieChart]);
 
   if (loading) return (
     <div>

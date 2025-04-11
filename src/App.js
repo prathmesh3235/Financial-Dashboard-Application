@@ -27,7 +27,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
+      <div className={`flex flex-col ${isMobile ? 'md:flex-col' : 'md:flex-row'} min-h-screen bg-gray-50`}>
       <Sidebar className="fixed h-full w-64 z-10" />
 
         <div className="flex flex-col flex-1 overflow-hidden w-full md:ml-64">
