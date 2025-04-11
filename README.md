@@ -3,8 +3,6 @@
 A modern frontend financial dashboard built with React that provides real-time financial data visualization and analysis tools. This is a client-side application focused on providing an intuitive user interface for financial data visualization.
 
 ## Features
-
-- Portfolio tracking and management
 - Interactive charts and graphs
 - Responsive design for all devices
 - Client-side state management
