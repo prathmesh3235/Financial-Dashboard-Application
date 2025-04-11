@@ -54,13 +54,19 @@ const BalanceHistory = () => {
     },
     scales: {
       y: {
+        min: 0,
+        max: 800,
         beginAtZero: true,
         border: {
           display: false,
         },
         grid: {
           display: true,
-          color: 'rgba(0, 0, 0, 0.1)',
+          color: '#EAEAEA',
+          lineWidth: 0.5,
+          drawBorder: false,
+          borderDash: [2, 2],
+          drawTicks: false
         },
         ticks: {
           callback: function(value) {
@@ -68,6 +74,10 @@ const BalanceHistory = () => {
           },
           stepSize: 200,
           color: '#718EBF',
+          padding: 10,
+          font: {
+            size: 12
+          }
         },
       },
       x: {
@@ -76,10 +86,18 @@ const BalanceHistory = () => {
         },
         grid: {
           display: true,
-          color: 'rgba(0, 0, 0, 0.1)',
+          color: '#EAEAEA',
+          lineWidth: 0.5,
+          drawBorder: false,
+          borderDash: [2, 2],
+          drawTicks: false
         },
         ticks: {
           color: '#718EBF',
+          padding: 10,
+          font: {
+            size: 12
+          }
         },
       },
     },
@@ -95,6 +113,10 @@ const BalanceHistory = () => {
       ...dataset,
       borderColor: '#1814F3',
       backgroundColor: 'rgba(24, 20, 243, 0.1)',
+      tension: 0.4,
+      fill: true,
+      borderWidth: 2,
+      pointRadius: 0
     })),
   } : null;
 
@@ -114,8 +136,8 @@ const BalanceHistory = () => {
   return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Balance History</h2>
-      <div className="rounded-lg p-6 md:bg-white md:shadow h-[320px] overflow-hidden">
-        <div className="h-[280px]">
+      <div className="rounded-lg p-6 md:bg-white md:shadow overflow-hidden" style={{ width: '635px', height: '276px' }}>
+        <div className="h-[233px]">
           {modifiedChartData && <Line options={options} data={modifiedChartData} />}
         </div>
       </div>

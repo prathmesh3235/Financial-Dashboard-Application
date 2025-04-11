@@ -137,10 +137,10 @@ const balanceHistoryData = {
   datasets: [
     {
       label: 'Balance',
-      data: [200, 320, 250, 400, 350, 500, 450, 640],
+      data: [120, 320, 250, 450, 750, 250, 550, 250, 650],
       fill: true,
-      backgroundColor: 'rgba(63, 125, 246, 0.2)',
-      borderColor: 'rgba(63, 125, 246, 1)',
+      backgroundColor: 'rgba(24, 20, 243, 0.1)',
+      borderColor: 'rgba(24, 20, 243, 1)',
       tension: 0.4,
       pointRadius: 0,
       pointHitRadius: 10,

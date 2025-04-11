@@ -25,12 +25,14 @@ const Dashboard = () => {
         <div>
           <ExpenseStatistics />
         </div>
-        
-        {/* Bottom row */}
-        <div className="lg:col-span-1">
+      </div>
+
+      {/* Bottom row with fixed widths - 40px gap to match grid width */}
+      <div className="mt-6 flex gap-10">
+        <div>
           <QuickTransfer />
         </div>
-        <div className="lg:col-span-2">
+        <div>
           <BalanceHistory />
         </div>
       </div>
