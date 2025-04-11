@@ -53,8 +53,8 @@ const ContactItem = ({ contact, isSelected, onClick }) => {
 // The Send button from the design
 const SendButton = ({ onClick, disabled, sending }) => (
   <button 
-    className={`flex items-center justify-center rounded-[14px] ${
-      !disabled ? 'bg-[#232323]' : 'bg-gray-400 cursor-not-allowed'
+    className={`flex items-center justify-center rounded-[14px] transition-all duration-200 ${
+      !disabled ? 'bg-[#232323] hover:bg-[#343434] hover:scale-[1.02]' : 'bg-gray-400 cursor-not-allowed'
     }`}
     style={{ 
       width: '108px',

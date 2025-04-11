@@ -30,7 +30,7 @@ const MyCards = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">My Cards</h2>
         <button 
-          className="text-[#343C6A] text-sm font-medium"
+          className="text-[#343C6A] text-sm font-medium hover:text-[#232323] transition-colors duration-200"
           onClick={() => console.log('View all cards')}
         >
           See All
@@ -48,7 +48,7 @@ const MyCards = () => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">My Cards</h2>
           <button 
-            className="text-[#343C6A] text-sm font-medium"
+            className="text-[#343C6A] text-sm font-medium hover:text-[#232323] transition-colors duration-200"
             onClick={() => console.log('View all cards')}
           >
             See All
@@ -66,7 +66,7 @@ const MyCards = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">My Cards</h2>
         <button 
-          className="text-[#343C6A] text-sm font-medium"
+          className="text-[#343C6A] text-sm font-medium hover:text-[#232323] transition-colors duration-200"
           onClick={() => console.log('View all cards')}
         >
           See All

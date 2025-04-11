@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Settings from './pages/Settings';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
 import Footer from './components/layout/Footer';
 import './App.css';
+
+// Lazy load pages
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Settings = React.lazy(() => import('./pages/Settings'));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center h-full">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+  </div>
+);
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -33,10 +42,12 @@ function App() {
         <div className="flex flex-col flex-1 overflow-hidden w-full md:ml-64">
           <Navbar />
           <main className="flex-1 overflow-y-auto p-4 md:p-6 md:bg-gray-50">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/settings" element={<Settings />} />
-            </Routes>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
+            </Suspense>
           </main>
           <Footer />
         </div>

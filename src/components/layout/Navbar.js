@@ -106,7 +106,7 @@ const Navbar = () => {
       <nav className="bg-white py-4 px-6 flex items-center justify-between shadow-sm main-navbar">
         {/* Left side - hamburger menu on mobile */}
         {isMobile && (
-          <button className="text-gray-700">
+          <button className="text-gray-700 hover:text-gray-900 transition-colors duration-200">
             <HamburgerIcon />
           </button>
         )}
@@ -127,7 +127,7 @@ const Navbar = () => {
               <input 
                 type="text" 
                 placeholder="Search for something"
-                className="pl-10 pr-4 py-2 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-400 text-sm search-input"
+                className="pl-10 pr-4 py-2 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-400 text-sm search-input hover:bg-gray-100 transition-colors duration-200"
               />
             </div>
           )}
@@ -135,11 +135,11 @@ const Navbar = () => {
           {/* Settings and notifications - only on desktop */}
           {!isMobile && (
             <>
-              <button className="text-gray-500 hover:text-gray-700">
+              <button className="text-gray-500 hover:text-gray-700 transition-colors duration-200">
                 <SettingsIcon />
               </button>
 
-              <button className="text-gray-500 hover:text-gray-700 relative">
+              <button className="text-gray-500 hover:text-gray-700 transition-colors duration-200 relative">
                 <NotificationsIcon />
               </button>
             </>

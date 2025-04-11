@@ -1,10 +1,20 @@
-import React from 'react';
-import MyCards from '../components/dashboard/MyCards';
-import RecentTransactions from '../components/dashboard/RecentTransactions';
-import WeeklyActivity from '../components/dashboard/WeeklyActivity';
-import ExpenseStatistics from '../components/dashboard/ExpenseStatistics';
-import QuickTransfer from '../components/dashboard/QuickTransfer';
-import BalanceHistory from '../components/dashboard/BalanceHistory';
+import React, { Suspense } from 'react';
+import {
+  QuickTransfer,
+  MyCards,
+  RecentTransactions,
+  WeeklyActivity,
+  ExpenseStatistics,
+  BalanceHistory,
+  Summary
+} from '../components/dashboard';
+
+// Component loading fallback
+const ComponentLoader = () => (
+  <div className="w-full h-48 bg-gray-100 rounded-lg animate-pulse flex items-center justify-center">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+  </div>
+);
 
 const Dashboard = () => {
   return (
@@ -12,7 +22,9 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Top row */}
         <div className="lg:col-span-2">
-          <MyCards />
+          <Suspense fallback={<ComponentLoader />}>
+            <MyCards />
+          </Suspense>
         </div>
         <div>
           <RecentTransactions />
@@ -20,20 +32,28 @@ const Dashboard = () => {
         
         {/* Middle row */}
         <div className="lg:col-span-2">
-          <WeeklyActivity />
+          <Suspense fallback={<ComponentLoader />}>
+            <WeeklyActivity />
+          </Suspense>
         </div>
         <div>
-          <ExpenseStatistics />
+          <Suspense fallback={<ComponentLoader />}>
+            <ExpenseStatistics />
+          </Suspense>
         </div>
       </div>
 
       {/* Bottom row with fixed widths - 40px gap to match grid width */}
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-2">
         <div className="lg:max-w-[445px] w-full">
-          <QuickTransfer />
+          <Suspense fallback={<ComponentLoader />}>
+            <QuickTransfer />
+          </Suspense>
         </div>
         <div className="lg:w-full">
-          <BalanceHistory />
+          <Suspense fallback={<ComponentLoader />}>
+            <BalanceHistory />
+          </Suspense>
         </div>
       </div>
     </div>

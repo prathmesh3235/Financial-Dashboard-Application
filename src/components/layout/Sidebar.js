@@ -195,7 +195,7 @@ const Sidebar = () => {
           {/* Mobile sidebar toggle button - removed since we have X in the header */}
           {!mobileMenuOpen && (
             <button 
-              className="fixed top-4 left-4 z-30 p-2 rounded-md bg-white shadow text-gray-700"
+              className="fixed top-4 left-4 z-30 p-2 rounded-md bg-white shadow text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
               onClick={() => setMobileMenuOpen(true)}
               style={sidebarStyles.noBorders}
             >
@@ -215,7 +215,7 @@ const Sidebar = () => {
               <div className="py-5 px-5 flex items-center justify-center relative h-16" style={{borderBottom: '1px solid #f3f4f6', ...sidebarStyles.noBorders}}>
                 {/* Close button (X) positioned absolutely to the left */}
                 <button 
-                  className="absolute left-4 text-gray-500"
+                  className="absolute left-4 text-gray-500 hover:text-gray-700 transition-colors duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                   style={sidebarStyles.noBorders}
                 >
