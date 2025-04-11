@@ -173,31 +173,21 @@ const ExpenseStatistics = () => {
       };
     };
     
-    // Draw pie slices with animation
+    // Draw pie slices without animation
     const paths = svg.selectAll('path')
       .data(pieData)
       .enter()
       .append('path')
-      .attr('d', arcInitial) // Start with zero radius
+      .attr('d', arcFinal)
       .attr('fill', d => d.data.color)
       .style('stroke', 'white')
-      .style('stroke-width', 0.1) // Minimal white border
-      .style('opacity', 0) // Start with zero opacity
-      .attr('transform', 'translate(0, 0)');
-    
-    // Animate slices growing from center
-    paths.transition()
-      .duration(800)
-      .delay((d, i) => i * 150) // Stagger the animations
-      .attr('d', arcFinal) // Grow to full radius
-      .style('opacity', 1) // Fade in
-      .transition() // Add second transition for explosion effect
-      .duration(500)
+      .style('stroke-width', 0.1)
+      .style('opacity', 1)
       .attr('transform', d => {
         const offset = getExplosionOffset(d);
         return `translate(${offset.x}, ${offset.y})`;
       });
-    
+
     // Precise text positioning based on the reference image
     const getTextPosition = (d) => {
       // Calculate the midpoint angle of the slice
@@ -243,7 +233,7 @@ const ExpenseStatistics = () => {
       return { x, y };
     };
     
-    // Add percentage labels with animation
+    // Add percentage labels without animation
     const percentageLabels = svg.selectAll('.percentage-label')
       .data(pieData)
       .enter()
@@ -251,8 +241,7 @@ const ExpenseStatistics = () => {
       .attr('class', 'percentage-label')
       .attr('transform', d => {
         const pos = getTextPosition(d);
-        // Adjust vertical spacing for Bill Expense percentage
-        const yOffset = d.data.category === 'Bill Expense' ? -8 : -10;  // Changed from -15 to -8
+        const yOffset = d.data.category === 'Bill Expense' ? -8 : -10;
         return `translate(${pos.x}, ${pos.y + yOffset})`;
       })
       .style('text-anchor', 'middle')
@@ -260,10 +249,10 @@ const ExpenseStatistics = () => {
       .style('font-weight', 'bold')
       .style('fill', 'white')
       .style('filter', 'url(#text-shadow)')
-      .style('opacity', 0)
+      .style('opacity', 1)
       .text(d => `${d.data.value}%`);
 
-    // Add category labels with animation
+    // Add category labels without animation
     const categoryLabels = svg.selectAll('.category-label')
       .data(pieData)
       .enter()
@@ -271,8 +260,7 @@ const ExpenseStatistics = () => {
       .attr('class', 'category-label')
       .attr('transform', d => {
         const pos = getTextPosition(d);
-        // Adjust vertical spacing for Bill Expense category
-        const yOffset = d.data.category === 'Bill Expense' ? 8 : 10;  // Changed from 5 to 8
+        const yOffset = d.data.category === 'Bill Expense' ? 8 : 10;
         return `translate(${pos.x}, ${pos.y + yOffset})`;
       })
       .style('text-anchor', 'middle')
@@ -280,19 +268,8 @@ const ExpenseStatistics = () => {
       .style('font-weight', '500')
       .style('fill', 'white')
       .style('filter', 'url(#text-shadow)')
-      .style('opacity', 0)
+      .style('opacity', 1)
       .text(d => d.data.displayName);
-      
-    // Animate text elements to fade in after slices appear
-    percentageLabels.transition()
-      .duration(500)
-      .delay((d, i) => 800 + i * 150) // Start after slices finish animating
-      .style('opacity', 1); // Fade in
-      
-    categoryLabels.transition()
-      .duration(500)
-      .delay((d, i) => 900 + i * 150) // Start slightly after percentage labels
-      .style('opacity', 1); // Fade in
   };
 
   if (loading) return (
