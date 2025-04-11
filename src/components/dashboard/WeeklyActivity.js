@@ -160,8 +160,8 @@ const WeeklyActivity = () => {
   return (
     <div>
       <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none mb-4">Weekly Activity</h2>
-      <div className="rounded-lg p-6 md:bg-white md:shadow">
-        <div className="h-80">
+      <div className="rounded-lg p-6 md:bg-white md:shadow h-[320px] w-full md:max-w-[730px]">
+        <div className="h-[280px]">
           <Bar options={options} data={chartData} />
         </div>
       </div>
