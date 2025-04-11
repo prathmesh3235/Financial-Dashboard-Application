@@ -34,11 +34,19 @@ const ContactItem = ({ contact, isSelected, onClick }) => {
     <div 
       className={`flex flex-col items-center cursor-pointer transition-all duration-200 ${isSelected ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
       onClick={onClick}
+      role="button"
+      tabIndex="0"
+      aria-pressed={isSelected}
+      onKeyPress={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick();
+        }
+      }}
     >
       <div className={`w-[52px] h-[52px] rounded-full overflow-hidden mb-1 sm:mb-2 ${isSelected ? 'ring-2 ring-[#718EBF]' : ''}`}>
         <img 
           src={contact.avatar} 
-          alt={contact.name} 
+          alt={`${contact.name}'s profile`}
           className="w-full h-full object-cover"
         />
       </div>
@@ -63,13 +71,14 @@ const SendButton = ({ onClick, disabled, sending }) => (
     }}
     onClick={onClick}
     disabled={disabled}
+    aria-label={sending ? "Sending payment..." : "Send payment"}
   >
     {sending ? (
       <span className="text-white text-base font-medium">Sending...</span>
     ) : (
       <div className="flex items-center justify-center">
         <span className="text-white text-base font-medium">Send</span>
-        <span className="ml-2">
+        <span className="ml-2" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M25.9824 0.923369C26.1091 0.333347 25.5307 -0.164153 24.9664 0.0511577L0.490037 9.39483C0.195457 9.50731 0.000610804 9.78965 1.43342e-06 10.105C-0.000607937 10.4203 0.193121 10.7034 0.487294 10.817L7.36317 13.4726V21.8369C7.36317 22.1897 7.60545 22.4963 7.94873 22.5779C8.28972 22.659 8.64529 22.4967 8.80515 22.1796L11.6489 16.5364L18.5888 21.6868C19.011 22.0001 19.6178 21.8008 19.7714 21.2974C26.251 0.0528342 25.9708 0.97674 25.9824 0.923369ZM19.9404 3.60043L8.01692 12.092L2.88664 10.1106L19.9404 3.60043ZM8.8866 13.3428L19.2798 5.94118C10.3366 15.3758 10.8037 14.8792 10.7647 14.9317C10.7067 15.0096 10.8655 14.7058 8.8866 18.6327V13.3428ZM18.6293 19.8197L12.5206 15.2862L23.566 3.63395L18.6293 19.8197Z" fill="white"/>
           </svg>
@@ -206,7 +215,7 @@ const QuickTransfer = () => {
         
         <div className="flex flex-col space-y-8 sm:space-y-12">
           {/* Contact selection section */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between" role="region" aria-label="Contact selection">
             <div className="flex items-center gap-4 sm:gap-7 mb-4 sm:mb-0">
               {contacts.map((contact) => (
                 <ContactItem 
@@ -216,8 +225,18 @@ const QuickTransfer = () => {
                   onClick={() => handleSelectContact(contact.id)}
                 />
               ))}
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5F7FA] text-[#718EBF] hover:bg-gray-200 cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div 
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5F7FA] text-[#718EBF] hover:bg-gray-200 cursor-pointer"
+                role="button"
+                tabIndex="0"
+                aria-label="Show more contacts"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    // Handle show more contacts
+                  }
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -225,8 +244,8 @@ const QuickTransfer = () => {
           </div>
 
           {/* Amount input section */}
-          <div className="flex flex-col sm:flex-row sm:items-center">
-            <span className="text-[#718EBF] text-lg mb-4 sm:mb-0 sm:mr-6">Write Amount</span>
+          <div className="flex flex-col sm:flex-row sm:items-center" role="region" aria-label="Payment amount">
+            <label htmlFor="amount" className="text-[#718EBF] text-lg mb-4 sm:mb-0 sm:mr-6">Write Amount</label>
             
             <div className="relative flex-1">
               <div 
@@ -239,6 +258,7 @@ const QuickTransfer = () => {
               >
                 <div className="flex-1 flex items-center">
                   <input
+                    id="amount"
                     type="text"
                     className="w-full h-full py-2 px-6 bg-transparent border-none focus:outline-none text-[#343C6A] text-center text-lg"
                     value={amount}
@@ -250,6 +270,8 @@ const QuickTransfer = () => {
                       }
                     }}
                     disabled={sending}
+                    aria-label="Payment amount"
+                    aria-disabled={sending}
                   />
                 </div>
                 

@@ -37,11 +37,24 @@ function App() {
   return (
     <BrowserRouter>
       <div className={`flex flex-col ${isMobile ? 'md:flex-col' : 'md:flex-row'} min-h-screen bg-gray-50`}>
-      <Sidebar className="fixed h-full w-64 z-10" />
+        {/* Skip to main content link */}
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-blue-600"
+        >
+          Skip to main content
+        </a>
+
+        <Sidebar className="fixed h-full w-64 z-10" />
 
         <div className="flex flex-col flex-1 overflow-hidden w-full md:ml-64">
           <Navbar />
-          <main className="flex-1 overflow-y-auto p-4 md:p-6 md:bg-gray-50">
+          <main 
+            id="main-content" 
+            className="flex-1 overflow-y-auto p-4 md:p-6 md:bg-gray-50" 
+            role="main" 
+            tabIndex="-1"
+          >
             <Suspense fallback={<LoadingFallback />}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />

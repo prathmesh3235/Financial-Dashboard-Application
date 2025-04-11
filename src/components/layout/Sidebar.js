@@ -127,7 +127,7 @@ const Sidebar = () => {
                       (item.path === '/settings' && location.pathname.includes('/settings'));
       
       return (
-        <li key={item.name} className="h-12 flex items-center" style={sidebarStyles.listItem}>
+        <li key={item.name} className="h-12 flex items-center" style={sidebarStyles.listItem} role="none">
           <Link
             to={item.path}
             className={`flex items-center h-full w-full px-6 transition-colors ${
@@ -137,8 +137,10 @@ const Sidebar = () => {
             }`}
             onClick={() => setMobileMenuOpen(false)}
             style={sidebarStyles.noBorders}
+            role="menuitem"
+            aria-current={isActive ? 'page' : undefined}
           >
-            <span className={`sidebar-icon flex-shrink-0 mr-4 ${isActive ? 'text-[#36406A]' : 'text-gray-400'}`}>
+            <span className={`sidebar-icon flex-shrink-0 mr-4 ${isActive ? 'text-[#36406A]' : 'text-gray-400'}`} aria-hidden="true">
               {item.icon}
             </span>
             <span className="whitespace-nowrap">{item.name}</span>
@@ -160,20 +162,29 @@ const Sidebar = () => {
 
   return (
     <>
-                {/* Desktop sidebar */}
+      {/* Desktop sidebar */}
       {!isMobile && (
-        <div className="hidden md:block bg-white h-screen shadow-md w-64 fixed" style={sidebarStyles.noBorders}>
+        <div 
+          className="hidden md:block bg-white h-screen shadow-md w-64 fixed" 
+          style={sidebarStyles.noBorders}
+          role="navigation"
+          aria-label="Main sidebar"
+        >
           {/* Header - aligned with navbar */}
-          <div className="py-5 px-5 flex items-center h-16" style={{borderBottom: '1px solid #f3f4f6', ...sidebarStyles.noBorders}}>
+          <div 
+            className="py-5 px-5 flex items-center h-16" 
+            style={{borderBottom: '1px solid #f3f4f6', ...sidebarStyles.noBorders}}
+            role="banner"
+          >
             <div className="w-6 h-7 mr-3 flex-shrink-0">
-              <SoarTaskIcon />
+              <SoarTaskIcon aria-hidden="true" />
             </div>
             <div className="text-xl font-bold text-[#36406A]">Soar Task</div>
           </div>
 
           {/* Navigation */}
-          <nav className="mt-8">
-            <ul className="space-y-0 relative" style={sidebarStyles.list}>
+          <nav className="mt-8" aria-label="Sidebar navigation">
+            <ul className="space-y-0 relative" style={sidebarStyles.list} role="menu">
               {/* Active indicator */}
               <div 
                 className="absolute left-0 h-10 w-1 bg-[#36406A] transition-transform duration-300 ease-in-out rounded-r-md pointer-events-none" 
@@ -181,6 +192,7 @@ const Sidebar = () => {
                   transform: getIndicatorPosition(),
                   ...sidebarStyles.noBorders
                 }}
+                aria-hidden="true"
               />
               
               {renderMenuItems()}
@@ -192,14 +204,16 @@ const Sidebar = () => {
       {/* Mobile sidebar */}
       {isMobile && (
         <>
-          {/* Mobile sidebar toggle button - removed since we have X in the header */}
+          {/* Mobile sidebar toggle button */}
           {!mobileMenuOpen && (
             <button 
               className="fixed top-4 left-4 z-30 p-2 rounded-md bg-white shadow text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
               onClick={() => setMobileMenuOpen(true)}
               style={sidebarStyles.noBorders}
+              aria-label="Open mobile menu"
+              aria-expanded="false"
             >
-              <HamburgerIcon />
+              <HamburgerIcon aria-hidden="true" />
             </button>
           )}
 
@@ -209,6 +223,9 @@ const Sidebar = () => {
               mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
             style={sidebarStyles.noBorders}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
           >
             <div className="h-full w-64 bg-white shadow-md flex flex-col" style={sidebarStyles.noBorders}>
               {/* Header */}
@@ -218,22 +235,23 @@ const Sidebar = () => {
                   className="absolute left-4 text-gray-500 hover:text-gray-700 transition-colors duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                   style={sidebarStyles.noBorders}
+                  aria-label="Close mobile menu"
                 >
-                  <CloseIcon />
+                  <CloseIcon aria-hidden="true" />
                 </button>
                 
                 {/* Logo and text centered in the header */}
                 <div className="flex items-center">
                   <div className="w-6 h-7 mr-3 flex-shrink-0">
-                    <SoarTaskIcon />
+                    <SoarTaskIcon aria-hidden="true" />
                   </div>
                   <div className="text-xl font-bold text-[#36406A]">Soar Task</div>
                 </div>
               </div>
 
               {/* Navigation */}
-              <nav className="mt-8 flex-1 overflow-y-auto">
-                <ul className="space-y-0 relative" style={sidebarStyles.list}>
+              <nav className="mt-8 flex-1 overflow-y-auto" aria-label="Mobile sidebar navigation">
+                <ul className="space-y-0 relative" style={sidebarStyles.list} role="menu">
                   {/* Active indicator */}
                   <div 
                     className="absolute left-0 h-10 w-1 bg-[#36406A] transition-transform duration-300 ease-in-out rounded-r-md pointer-events-none" 
@@ -241,6 +259,7 @@ const Sidebar = () => {
                       transform: getIndicatorPosition(),
                       ...sidebarStyles.noBorders
                     }}
+                    aria-hidden="true"
                   />
                   
                   {renderMenuItems()}
@@ -253,6 +272,7 @@ const Sidebar = () => {
               className="absolute inset-0 -z-10" 
               onClick={() => setMobileMenuOpen(false)}
               style={sidebarStyles.noBorders}
+              aria-hidden="true"
             ></div>
           </div>
         </>
