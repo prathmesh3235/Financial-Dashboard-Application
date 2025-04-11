@@ -5,8 +5,7 @@ import {
   RecentTransactions,
   WeeklyActivity,
   ExpenseStatistics,
-  BalanceHistory,
-  Summary
+  BalanceHistory
 } from '../components/dashboard';
 
 // Component loading fallback
