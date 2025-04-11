@@ -47,7 +47,7 @@ const RecentTransactions = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">Recent Transaction</h2>
       </div>
-      <div className="rounded-lg p-4 bg-white shadow min-h-[260px]">
+      <div className="rounded-lg p-4 sm:bg-white shadow min-h-[260px]">
         <LoadingState type="card" />
       </div>
     </div>
@@ -59,7 +59,7 @@ const RecentTransactions = () => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">Recent Transaction</h2>
         </div>
-        <div className="rounded-lg p-4 bg-white shadow min-h-[260px]">
+        <div className="rounded-lg p-4 sm:bg-white shadow min-h-[260px]">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -71,7 +71,7 @@ const RecentTransactions = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-[22px] font-semibold text-[#343C6A] leading-none">Recent Transaction</h2>
       </div>
-      <div className="p-3 rounded-lg bg-white shadow h-[235px] w-[350px]">
+      <div className="p-3 rounded-lg sm:bg-white shadow h-[235px] w-[350px]">
         <div className="space-y-3">
           {transactions.map((transaction) => (
             <div key={transaction.id} className="flex items-center justify-between">
